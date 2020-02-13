@@ -18,7 +18,7 @@ public abstract class PAGO {
             if (numero_cuenta.equals(cuenta.get(i).getNumero_cuenta())) {
                 cuenta.get(i).acreditar(monto);
                 estado = true;
-                System.out.println("Se acredito correctamente: "+monto);
+                System.out.println("Se acreditó correctamente el monto de $"+monto+" a la cuenta: "+numero_cuenta);
             }
         }
         if (estado) {
@@ -34,16 +34,16 @@ public abstract class PAGO {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
                 if (cuentasDebito.get(i).getCvv().equals(cvv)) {
                     if (cuentasDebito.get(i).debitar(monto)) {
-                        System.out.println("Se dibito $ " + monto + " exitosamente");
+                        System.out.println("Se debitó el monto de $" + monto + " exitosamente de la cuenta: "+número_cuenta);
                         estado = true;
                     } else {
-                        System.out.println("Transaccion erronea");
+                        System.out.println("Transacción no realizada.");
                     }
                     break;
                 }
             }
             if (cuentasDebito.size() - 1 == i) {
-                JOptionPane.showMessageDialog(null,"Error en la Cuenta, Por Favor verificar los datos");
+                JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
             }
         }
         if (estado) {
@@ -59,16 +59,16 @@ public abstract class PAGO {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
 
                 if (cuentasDebito.get(i).debitar(monto)) {
-                    System.out.println("Se dibito $ " + monto + " exitosamente");
+                    System.out.println("Se debitó el monto de $" + monto + " exitosamente de la cuenta: "+número_cuenta);
                     estado = true;
                 } else {
-                    System.out.println("Transaccion erronea");
+                    System.out.println("Transacción no realizada.");
                 }
                 break;
 
             }
             if (cuentasDebito.size() - 1 == i) {
-                JOptionPane.showMessageDialog(null,"Error en la Cuenta, Por Favor verificar los datos");
+                JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
             }
         }
         if (estado) {

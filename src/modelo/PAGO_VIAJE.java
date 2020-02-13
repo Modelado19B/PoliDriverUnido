@@ -23,11 +23,11 @@ public class PAGO_VIAJE extends PAGO {
                 acreditar_cuenta(numCuentaEmpresa, montoEmpresa);
                 estado = true;
             } else {
-                System.out.println("Error en el deposito del conductor");
+                System.out.println("Error en el depósito del conductor.");
             }
 
         } else {
-            System.out.println("Error en el debito del pasajero");
+            System.out.println("Error en el débito del pasajero.");
         }
         return estado;
     }

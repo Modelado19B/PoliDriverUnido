@@ -21,7 +21,7 @@ public class CUENTA {
             saldo -= monto;
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "No Tiene dinero suficiente en la cuenta");
+            JOptionPane.showMessageDialog(null, "Saldo no disponible.");
             return false;
         } 
     }
