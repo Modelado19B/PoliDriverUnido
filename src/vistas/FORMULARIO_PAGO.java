@@ -26,6 +26,7 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
     private String cedula;
     private int monto;
     PASAJERO pasajero;
+    Genera_Cuenta gc = new Genera_Cuenta();
     
     private boolean estadoPago=false;
 
@@ -46,16 +47,19 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
    
 
     //funcion para recivir los valores
-    public void setDatos(PASAJERO pasajero, int precio, String nombre) {
-       /* Genera_Cuenta gc = new Genera_Cuenta();
-        Vector<String> VecData = gc.dataPasajero(cedula);
-        jLabelNombre.setText(VecData.get(1));
-        jLabelApellido.setText(VecData.get(2));
-        jLabelCedula.setText(VecData.get(0));
-        jLabelCorreo.setText(VecData.get(4));*/
-        jLabelCuenta.setText(nombre);
+    public void setDatos(PASAJERO pasajero, int precio, String nombre) { 
+        String cedula_conductor=gc.genNumTarjetaNombre(nombre);
+        String cuenta_pasajero=gc.genNumTarjetaCedula(pasajero.getCedula());
+        //CONDUCTOR conductor=gc.generaDatosConductor(cedula_conductor);
+        jLabelNombre.setText(pasajero.getNombre());
+        jLabelApellido.setText(pasajero.getApellido());
+        jLabelCedula.setText(pasajero.getCedula());
+        jLabelCorreo.setText(pasajero.getCorreo());
+        jLabelCuenta.setText(cuenta_pasajero);
         this.pasajero = pasajero;
         this.nombre="ESTEBAN ANDALUZ";
+        //System.out.println(conductor.getNombre());
+//        this.nombre=conductor.getNombre();
         this.cedula=pasajero.getCedula();
         this.monto=precio;
     }
@@ -98,15 +102,15 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelApellido = new javax.swing.JLabel();
+        jLabelCedula = new javax.swing.JLabel();
+        jLabelCorreo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabelCuenta = new javax.swing.JLabel();
         jTextFieldCvv = new javax.swing.JTextField();
-        jLabelNombre = new javax.swing.JLabel();
-        jLabelApellido = new javax.swing.JLabel();
-        jLabelCedula = new javax.swing.JLabel();
-        jLabelCorreo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -134,6 +138,14 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(7, 105, 122));
         jLabel5.setText("Cédula:");
+
+        jLabelNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        jLabelApellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        jLabelCedula.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        jLabelCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18), new java.awt.Color(7, 105, 122))); // NOI18N
@@ -183,14 +195,6 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
                     .addComponent(jTextFieldCvv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
-
-        jLabelNombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        jLabelApellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        jLabelCedula.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        jLabelCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(5, 71, 82));
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -290,19 +294,8 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-
-        PAGO_VIAJE pago = new PAGO_VIAJE();    
         Cvv = jTextFieldCvv.getText();
-        if(pago.pagar(nombre, cedula, monto,Cvv)){
-            JOptionPane.showMessageDialog(this, "El pago fue Correcto");
-            //notifiacar aqui
-            estadoPago=true;
-            pago.notifica_pago_exitoso();
-            this.dispose();            
-        }else{
-            JOptionPane.showMessageDialog(this, "El pago fue Invalido");
-            jTextFieldCvv.setText("");
-        }       
+        confirmarPago(Cvv);    
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public boolean estado(){
@@ -376,6 +369,20 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
 //                
 //            }
 //        });
+    }
+    
+    public void confirmarPago(String cvv){
+        PAGO_VIAJE pago = new PAGO_VIAJE();    
+        if(pago.pagar(nombre, cedula, monto,cvv)){
+            JOptionPane.showMessageDialog(this, "El pago fue Correcto");
+            //notifiacar aqui
+            estadoPago=true;
+            pago.notifica_pago_exitoso();
+            this.dispose();            
+        }else{
+            JOptionPane.showMessageDialog(this, "El pago fue Invalido");
+            jTextFieldCvv.setText("");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
