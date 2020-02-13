@@ -57,21 +57,21 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
         jLabelCorreo.setText(pasajero.getCorreo());
         jLabelCuenta.setText(cuenta_pasajero);
         this.pasajero = pasajero;
-        this.nombre="ESTEBAN ANDALUZ";
+        this.nombre=nombre;
         //System.out.println(conductor.getNombre());
 //        this.nombre=conductor.getNombre();
         this.cedula=pasajero.getCedula();
         this.monto=precio;
     }
     
-    public void setDatosPasajero(String nombre, String cedula, int monto) {
-        Genera_Cuenta gc = new Genera_Cuenta();
-        //PASAJERO pasajero = gc.generaDatosPasajero(cedula);
-        jLabelCedula.setText(cedula);
-        this.nombre=nombre;
-        this.cedula=cedula;
-        this.monto=monto;
-    }
+//    public void setDatosPasajero(String nombre, String cedula, int monto) {
+//        Genera_Cuenta gc = new Genera_Cuenta();
+//        //PASAJERO pasajero = gc.generaDatosPasajero(cedula);
+//        jLabelCedula.setText(cedula);
+//        this.nombre=nombre;
+//        this.cedula=cedula;
+//        this.monto=monto;
+//    }
 
     public void limitar() {
         jTextFieldCvv.setDocument(limitarCaracteres = new LimitarCaracteres(jTextFieldCvv, 3));

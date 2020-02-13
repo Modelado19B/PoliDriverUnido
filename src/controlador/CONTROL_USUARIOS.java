@@ -8,7 +8,11 @@ package controlador;
 import modelo.*;
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -155,6 +159,44 @@ private static final String ID = "^[A-Z]+";
         } catch (Exception e) {
         }
      
+    return true;
+    }
+    
+    public static void aniadirArchivoCuenta(String data) {
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+	FileWriter flwriter = null;
+        
+		try {
+                     File file = new File("cuentas.txt");
+
+                   if (!file.exists()) {
+                       
+                       file.createNewFile();
+                   }
+
+                        fw = new FileWriter(file.getAbsoluteFile(), true);
+                        bw = new BufferedWriter(fw);
+                        bw.write(data);
+                        System.out.println("información agregada!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                            try {
+
+                                if (bw != null)
+                                    bw.close();
+                                if (fw != null)
+                                    fw.close();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                          }
+    }
+    public boolean control_guardado_cuenta(String tarjeta){
+        
+       
+       aniadirArchivoCuenta(tarjeta+"|111|1000.0"+"\n");
     return true;
     }
     

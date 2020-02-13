@@ -157,6 +157,7 @@ public class FORMULARIO_TARJETA extends javax.swing.JFrame {
                 boolean c = con.control_guardado_pasajero(nombre, apellido,cedula1,  sexo, correo,fechanac.toString(), usuario, contraseña);
                 JOptionPane.showConfirmDialog(null, "Sus datos se han registrado en el sistema", "Registro Exitoso", JOptionPane.DEFAULT_OPTION);
                 con.control_guardadotarjeta(cedula1, TITULAR.getText(), numero.getText(), String.valueOf(jMonthChooser1.getMonth()+"/"+String.valueOf(jYearChooser1.getYear())));
+                boolean cc=con.control_guardado_cuenta(numero.getText());
                 FORMULARIO_LOGIN log = new FORMULARIO_LOGIN();
                 log.setVisible(true);
                 log.setLocationRelativeTo(null);
@@ -167,6 +168,7 @@ public class FORMULARIO_TARJETA extends javax.swing.JFrame {
                 boolean c=con.control_guardado_conductor(nombre, apellido, cedula1, sexo, correo, fechanac.toString(), usuario, contraseña, tipo1, fechali1);
                 boolean cv=con.control_guardado_conductor_vehiculo(cedula1, nombre,apellido, placa, marca, modelo, color, asientos);
                 boolean ct = con.control_guardadotarjeta(cedula1, TITULAR.getText(),numero.getText(), String.valueOf(jMonthChooser1.getMonth()+"/"+String.valueOf(jYearChooser1.getYear())));
+                boolean cc=con.control_guardado_cuenta(numero.getText());
                 JOptionPane.showConfirmDialog(null, "Sus datos se han registrado en el sistema", "Registro Exitoso", JOptionPane.DEFAULT_OPTION);
                 FORMULARIO_LOGIN log = new FORMULARIO_LOGIN();
                 log.setVisible(true);

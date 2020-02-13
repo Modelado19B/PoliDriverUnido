@@ -18,6 +18,7 @@ public final class VentanaViaje extends javax.swing.JDialog {
     String cedula;
     int precio;
     PASAJERO pasajero;
+    String cedulaConductor;
     
 
     Publicacion publicacion = new Publicacion();
@@ -35,6 +36,7 @@ public final class VentanaViaje extends javax.swing.JDialog {
         lblFecha.setText(listaViaje.buscarViaje(indiceViaje).getFecha());
         lblSalida.setText(listaViaje.buscarViaje(indiceViaje).getHora_salida());
         lblLlegada.setText(listaViaje.buscarViaje(indiceViaje).getHora_llegada());
+        cedulaConductor=listaViaje.buscarViaje(indiceViaje).getCi_conductor();
 
     }
 
@@ -285,8 +287,9 @@ public final class VentanaViaje extends javax.swing.JDialog {
         System.out.println("en pago 3");
         FORMULARIO_PAGO dialog = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
         //dialog.setDatos(jLabel10.getText(), cedu_conductor.getText(), jLabel9.getText());
-
-        dialog.setDatos(pasajero, precio,"ESTEBAN ANDALUZ");
+        System.out.println("conductor: "+cedulaConductor);
+        
+        dialog.setDatos(pasajero, precio,cedulaConductor);
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {

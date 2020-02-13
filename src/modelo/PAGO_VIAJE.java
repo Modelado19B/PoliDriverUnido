@@ -11,7 +11,7 @@ public class PAGO_VIAJE extends PAGO {
         
         int monto = montoString;
 
-        String numCuentaConductor = gc.genNumTarjetaNombre(nomConductor);
+        String numCuentaConductor = gc.genNumTarjetaCedula(nomConductor);
         String numCuentaPasajero = gc.genNumTarjetaCedula(cedulaPasajero);
 
         float montoEmpresa = monto * 2 / 10;
