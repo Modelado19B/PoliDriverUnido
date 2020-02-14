@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
 import controlador.LimitarCaracteres;
@@ -14,21 +10,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.*;
 
-/**
- *
- * @author dome_
- */
 public class FORMULARIO_PAGO extends javax.swing.JDialog {
 
     LimitarCaracteres limitarCaracteres;
-    private String Cvv;
-    private String nombre;
-    private String cedula;
-    private int monto;
     PASAJERO pasajero;
     Genera_Cuenta gc = new Genera_Cuenta();
-
-    private boolean estadoPago = false;
+    private String cvv; 
 
     public FORMULARIO_PAGO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -36,24 +23,6 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         limitar();
         limitarCaracteres.SNumeros(jTextFieldCvv);
-    }
-
-    //funcion para recivir los valores
-    public void setDatos(PASAJERO pasajero, int precio, String nombre) {
-        //String cedula_conductor=gc.genNumTarjetaCedula(nombre);
-        String cuenta_pasajero = gc.genNumTarjetaCedula(pasajero.getCedula());
-        //CONDUCTOR conductor=gc.generaDatosConductor(cedula_conductor);
-        jLabelNombre.setText(pasajero.getNombre());
-        jLabelApellido.setText(pasajero.getApellido());
-        jLabelCedula.setText(pasajero.getCedula());
-        jLabelCorreo.setText(pasajero.getCorreo());
-        jLabelCuenta.setText(cuenta_pasajero);
-        this.pasajero = pasajero;
-        this.nombre = nombre;
-        //System.out.println(conductor.getNombre());
-//        this.nombre=conductor.getNombre();
-        this.cedula = pasajero.getCedula();
-        this.monto = precio;
     }
 
     public void setDatos(PASAJERO pasajero, int precio) {
@@ -78,7 +47,7 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
     }
 
     public String getCvv() {
-        return jTextFieldCvv.getText();
+        return cvv;
     }
 
     @SuppressWarnings("unchecked")
@@ -277,25 +246,21 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
+        cvv="000";
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Cvv = jTextFieldCvv.getText();
-//      
-        this.dispose();
-        //confirmarPago(Cvv);
+       confirmar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public boolean estado() {
-        return estadoPago;
+    public void confirmar() {
+        cvv = jTextFieldCvv.getText();
+        this.dispose();
     }
 
     private void jTextFieldCvvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCvvActionPerformed
-        // TODO add your handling code here:
-
-
+  
     }//GEN-LAST:event_jTextFieldCvvActionPerformed
 
     /**
@@ -359,20 +324,6 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
 //                
 //            }
 //        });
-    }
-
-    public void confirmarPago(String cvv) {
-        PAGO_VIAJE pago = new PAGO_VIAJE();
-        if (pago.pagar(nombre, cedula, monto, cvv)) {
-            JOptionPane.showMessageDialog(this, "El pago fue Correcto");
-            //notifiacar aqui
-            estadoPago = true;
-            pago.notifica_pago_exitoso();
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "El pago fue Invalido");
-            jTextFieldCvv.setText("");
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

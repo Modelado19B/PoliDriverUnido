@@ -46,30 +46,35 @@ public class PAGO_VIAJE extends PAGO {
         formulario.setVisible(true);
         String cvv = formulario.getCvv();
         formulario.dispose();
-
-        int monto = montoString;
-
-        String numCuentaConductor = gc.genNumTarjetaCedula(cedulaConductor);
-        String numCuentaPasajero = gc.genNumTarjetaCedula(pasajero.getCedula());
-
-        float montoEmpresa = monto * 2 / 10;
-        float montoConductor = monto * 8 / 10;
-
         boolean estado = false;
-        if (debitar_cuenta(numCuentaPasajero, cvv, monto)) {
-            if (acreditar_cuenta(numCuentaConductor, montoConductor)) {
-                acreditar_cuenta(numCuentaEmpresa, montoEmpresa);
-                estado = true;
-            } else {
-                System.out.println("Error en el depósito del conductor.");
-            }
+        
+        if (cvv.equals("000")) {
+            JOptionPane.showMessageDialog(formulario, "Se canceló el Pago");
+            return estado;
         } else {
-            System.out.println("Error en el débito del pasajero.");
+            int monto = montoString;
+
+            String numCuentaConductor = gc.genNumTarjetaCedula(cedulaConductor);
+            String numCuentaPasajero = gc.genNumTarjetaCedula(pasajero.getCedula());
+
+            float montoEmpresa = monto * 2 / 10;
+            float montoConductor = monto * 8 / 10;
+
+            if (debitar_cuenta(numCuentaPasajero, cvv, monto)) {
+                if (acreditar_cuenta(numCuentaConductor, montoConductor)) {
+                    acreditar_cuenta(numCuentaEmpresa, montoEmpresa);
+                    estado = true;
+                } else {
+                    System.out.println("Error en el depósito del conductor.");
+                }
+            } else {
+                System.out.println("Error en el débito del pasajero.");
+            }
+            if (estado) {
+                JOptionPane.showMessageDialog(formulario, "El Pago fue realizado corectamente");
+            }
+            return estado;
         }
-        if(estado){
-            JOptionPane.showMessageDialog(formulario,"El Pago fue realizado corectamente");
-        }
-        return estado;
     }
 
 }
