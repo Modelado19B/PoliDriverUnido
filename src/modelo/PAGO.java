@@ -46,12 +46,11 @@ public abstract class PAGO {
                     break;
                 }
             }
-            if (cuentasDebito.size() - 1 == i) {
-                JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
-            }
         }
         if (estado) {
             new Genera_Cuenta().guardaCuenta(cuentasDebito);
+        }else{
+            JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
         }
         return estado;
     }

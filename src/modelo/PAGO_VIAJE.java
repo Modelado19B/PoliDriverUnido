@@ -39,7 +39,6 @@ public class PAGO_VIAJE extends PAGO {
     }
 
     public boolean pagar(PASAJERO pasajero, int montoString, String cedulaConductor) {
-        //PASAJERO pasajero, int precio, String nombre
         Genera_Cuenta gc = new Genera_Cuenta();
         formulario = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
         formulario.setDatos(pasajero, montoString);
