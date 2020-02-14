@@ -48,7 +48,7 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
 
     //funcion para recivir los valores
     public void setDatos(PASAJERO pasajero, int precio, String nombre) { 
-        String cedula_conductor=gc.genNumTarjetaNombre(nombre);
+        String cedula_conductor=gc.genNumTarjetaCedula(nombre);
         String cuenta_pasajero=gc.genNumTarjetaCedula(pasajero.getCedula());
         //CONDUCTOR conductor=gc.generaDatosConductor(cedula_conductor);
         jLabelNombre.setText(pasajero.getNombre());

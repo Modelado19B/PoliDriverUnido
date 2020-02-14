@@ -23,6 +23,7 @@ public class Ejecutable {
         dialog.setDatos(pasajero, 20, "144444444-4");
         dialog.setVisible(true);
         dialog.dispose();
+        System.exit(0);
     }
     
 }

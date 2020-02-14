@@ -22,7 +22,7 @@ public abstract class PAGO {
             }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuenta);
+            new Genera_Cuenta().guardaCuenta(cuenta);
         }
         return estado;
     }
@@ -47,7 +47,7 @@ public abstract class PAGO {
             }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuentasDebito);
+            new Genera_Cuenta().guardaCuenta(cuentasDebito);
         }
         return estado;
     }
@@ -72,7 +72,7 @@ public abstract class PAGO {
             }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuentasDebito);
+            new Genera_Cuenta().guardaCuenta(cuentasDebito);
         }
         return estado;
     }

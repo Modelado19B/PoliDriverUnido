@@ -9,7 +9,6 @@ import java.util.Vector;
 public class Genera_Cuenta {
 
     public ArrayList generaCuentas() {
-
         ArrayList<Cuenta> cuentasDebito = new ArrayList<Cuenta>();
 
         String número_cuenta;
@@ -54,8 +53,60 @@ public class Genera_Cuenta {
         }
         return cuentasDebito;
     }
+/*
+    public Cuenta generaCuentas(String numeroCuenta) {
 
-    public void gurdaCuenta(ArrayList cuentasCredito) {
+        String número_cuenta;
+        String cvv;
+        float saldo;
+        Cuenta cd = null;
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        boolean estado=false;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("cuentas.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "|");
+                número_cuenta = st.nextToken();
+                cvv = st.nextToken();
+                saldo = Float.parseFloat(st.nextToken());
+                if (numeroCuenta.equals(número_cuenta)) {
+                    cd = new Cuenta(número_cuenta, cvv, saldo);
+                    estado = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        if (!estado) {
+            System.out.println("No se encontro la informacion de: " + numeroCuenta);
+        }
+        return cd;
+    }
+*/
+    public void guardaCuenta(ArrayList cuentasCredito) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
@@ -86,8 +137,9 @@ public class Genera_Cuenta {
         String nombre;
         String cedula;
         String numTarjeta;
-        String numTarjetaEncontrado = null;
+        String numTarjetaEncontrado = "";
         String fecha;
+        boolean estado = false;
 
         File archivo = null;
         FileReader fr = null;
@@ -108,6 +160,7 @@ public class Genera_Cuenta {
                 fecha = st.nextToken();
                 if (numCedula.equals(cedula)) {
                     numTarjetaEncontrado = numTarjeta;
+                    estado=true;
                     break;
                 }
             }
@@ -122,58 +175,10 @@ public class Genera_Cuenta {
                 e2.printStackTrace();
             }
         }
-        if (numTarjetaEncontrado == null) {
-            return "";
-        } else {
-            return numTarjetaEncontrado;
+        if (!estado) {
+            System.out.println("No se encontro la informacion de: 5 " + numCedula);
         }
-    }
-
-    public String genNumTarjetaNombre(String nombreBuscar) {
-        String nombre;
-        String cedula;
-        String numTarjeta;
-        String numTarjetaEncontrado = null;
-        String fecha;
-
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-            archivo = new File("Tarjetas_usuarios.txt");
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
-
-            // Lectura del fichero
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                StringTokenizer st = new StringTokenizer(linea, "++");
-                cedula = st.nextToken();
-                nombre = st.nextToken();
-                numTarjeta = st.nextToken();
-                fecha = st.nextToken();
-                if (nombreBuscar.equals(nombre)) {
-                    numTarjetaEncontrado = numTarjeta;
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != fr) {
-                    fr.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-        if (numTarjetaEncontrado == null) {
-            return "";
-        } else {
-            return numTarjetaEncontrado;
-        }
+        return numTarjetaEncontrado;
 
     }
 
@@ -194,6 +199,8 @@ public class Genera_Cuenta {
         FileReader fr = null;
         BufferedReader br = null;
 
+        boolean estado = false;
+
         try {
             archivo = new File("Usuario_solo_Pasajeros.txt");
             fr = new FileReader(archivo);
@@ -213,7 +220,7 @@ public class Genera_Cuenta {
 
                 if (cedulaBuscar.equals(cedula)) {
                     pasajero = new PASAJERO(nombre, apellido, cedula, sexo, correo, usuario, contraseña, fechanac);
-                    System.out.println(nombre + "++" + apellido + "++" + cedula + "++" + sexo + "++" + correo + "++" + usuario + "++" + contraseña + "++" + fechanac);
+                    estado = true;
                     break;
                 }
             }
@@ -228,12 +235,17 @@ public class Genera_Cuenta {
                 e2.printStackTrace();
             }
         }
+        if (!estado) {
+            System.out.println("No se encontro la informacion de: 3 " + cedulaBuscar);
+        }
         return pasajero;
     }
 
     public CONDUCTOR generaDatosConductor(String cedulaBuscar) {
 
         String nombre, apellido, cedula, sexo, correo, usuario, contraseña, fechanac;
+
+        boolean estado = false;
 
         CONDUCTOR conductor = null;
 
@@ -258,7 +270,7 @@ public class Genera_Cuenta {
 
                 if (cedulaBuscar.equals(cedula)) {
                     conductor = new CONDUCTOR(nombre, apellido, cedula, sexo, correo, usuario, "", "", "", null);
-                    //System.out.println(nombre + "++" + apellido + "++" + cedula + "++" + sexo + "++" + correo + "++" + usuario + "++" + contraseña + "++" + fechanac);
+                    estado = true;
                     break;
                 }
             }
@@ -273,16 +285,21 @@ public class Genera_Cuenta {
                 e2.printStackTrace();
             }
         }
+        if (!estado) {
+            System.out.println("No se encontro la informacion de: 2 " + cedulaBuscar);
+        }
         return conductor;
     }
+
     //esto puede no servir
     public String genNumCuenta(String numCedula) {
 
         String nombre;
         String cedula;
         String numTarjeta;
-        String numTarjetaEncontrado = null;
+        String numTarjetaEncontrado = "";
         String fecha;
+        boolean estado = false;
 
         File archivo = null;
         FileReader fr = null;
@@ -303,6 +320,7 @@ public class Genera_Cuenta {
                 fecha = st.nextToken();
                 if (numCedula.equals(cedula)) {
                     numTarjetaEncontrado = numTarjeta;
+                    estado = true;
                     break;
                 }
             }
@@ -317,11 +335,9 @@ public class Genera_Cuenta {
                 e2.printStackTrace();
             }
         }
-        if (numTarjetaEncontrado == null) {
-            return "";
-        } else {
-            return numTarjetaEncontrado;
+        if (!estado) {
+            System.out.println("No se encontro la informacion de: 1 " + numCedula);
         }
+        return numTarjetaEncontrado;
     }
 }
-
