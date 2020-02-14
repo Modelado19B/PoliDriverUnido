@@ -4,8 +4,12 @@ package modelo;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import vistas.FORMULARIO_PAGO;
 
 public abstract class PAGO {
+    
+    FORMULARIO_PAGO formulario = null;
+    //instancia: new FORMULARIO_PAGO(new javax.swing.JFrame(), true); 
 
     private String numCuentaConductor;
     private String numCuentaPasajero;     
