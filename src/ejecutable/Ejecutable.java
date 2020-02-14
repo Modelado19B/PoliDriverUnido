@@ -15,13 +15,13 @@ public class Ejecutable {
 
 //      ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();       
 //      obj.leerArchivo("172526388-1");
-//        PRINCIPAL p = new PRINCIPAL();
-//        p.setLocationRelativeTo(null);
-//        p.setVisible(true);
+        PRINCIPAL p = new PRINCIPAL();
+        p.setLocationRelativeTo(null);
+        p.setVisible(true);
        
 //        FORMULARIO_PAGO dialog = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
-        Genera_Cuenta gc = new Genera_Cuenta();
-        PASAJERO pasajero= gc.generaDatosPasajero("012345678-9");
+ //       Genera_Cuenta gc = new Genera_Cuenta();
+ //       PASAJERO pasajero= gc.generaDatosPasajero("012345678-9");
 //        dialog.setDatos(pasajero, 20, "144444444-4");
 //        dialog.setVisible(true);
 
