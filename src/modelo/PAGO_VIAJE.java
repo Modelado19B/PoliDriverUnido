@@ -1,5 +1,6 @@
 package modelo;
 
+import javax.swing.JOptionPane;
 import vistas.FORMULARIO_PAGO;
 
 public class PAGO_VIAJE extends PAGO {
@@ -64,6 +65,9 @@ public class PAGO_VIAJE extends PAGO {
             }
         } else {
             System.out.println("Error en el débito del pasajero.");
+        }
+        if(estado){
+            JOptionPane.showMessageDialog(formulario,"El Pago fue realizado corectamente");
         }
         return estado;
     }
