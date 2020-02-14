@@ -25,9 +25,11 @@ public class Ejecutable {
 //        dialog.setDatos(pasajero, 20, "144444444-4");
 //        dialog.setVisible(true);
 
-//        PAGO_VIAJE pg = new PAGO_VIAJE();
-//        pg.pagar(pasajero, 20, "144444444-4");
-//        System.exit(0);
+        PAGO_VIAJE pg = new PAGO_VIAJE();
+        System.out.println("si: "+pg.pagar(pasajero, 20, "144444444-4"));
+        
+        
+        System.exit(0);
     }
     
 }
