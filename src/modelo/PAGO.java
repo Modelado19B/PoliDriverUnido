@@ -13,7 +13,7 @@ public abstract class PAGO {
 
     public boolean acreditar_cuenta(String numero_cuenta, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuenta = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuenta = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuenta.size(); i++) {
             if (numero_cuenta.equals(cuenta.get(i).getNumero_cuenta())) {
                 cuenta.get(i).acreditar(monto);
@@ -29,7 +29,7 @@ public abstract class PAGO {
 
     public boolean debitar_cuenta(String número_cuenta, String cvv, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuentasDebito = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuentasDebito = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuentasDebito.size(); i++) {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
                 if (cuentasDebito.get(i).getCvv().equals(cvv)) {
@@ -54,7 +54,7 @@ public abstract class PAGO {
 
     public boolean debitar_cuenta(String número_cuenta, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuentasDebito = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuentasDebito = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuentasDebito.size(); i++) {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
 

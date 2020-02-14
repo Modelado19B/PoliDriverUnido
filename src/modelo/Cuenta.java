@@ -3,13 +3,13 @@ package modelo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class CUENTA {
+public class Cuenta {
  
     private String numero_cuenta;
     private String cvv;
     private float saldo;
 
-    public CUENTA(String numero_cuenta, String cvv, float saldo) {
+    public Cuenta(String numero_cuenta, String cvv, float saldo) {
         this.numero_cuenta = numero_cuenta;
         this.cvv = cvv;
         this.saldo = saldo;

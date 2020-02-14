@@ -10,7 +10,7 @@ public class Genera_Cuenta {
 
     public ArrayList generaCuentas() {
 
-        ArrayList<CUENTA> cuentasDebito = new ArrayList<CUENTA>();
+        ArrayList<Cuenta> cuentasDebito = new ArrayList<Cuenta>();
 
         String número_cuenta;
         String cvv;
@@ -35,7 +35,7 @@ public class Genera_Cuenta {
                 número_cuenta = st.nextToken();
                 cvv = st.nextToken();
                 saldo = Float.parseFloat(st.nextToken());
-                CUENTA cd = new CUENTA(número_cuenta, cvv, saldo);
+                Cuenta cd = new Cuenta(número_cuenta, cvv, saldo);
                 cuentasDebito.add(cd);
             }
         } catch (Exception e) {
