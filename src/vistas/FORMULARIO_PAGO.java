@@ -246,7 +246,7 @@ public class FORMULARIO_PAGO extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cvv="000";
+        cvv="";
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
