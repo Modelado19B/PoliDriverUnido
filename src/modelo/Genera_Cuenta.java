@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 //clase coneccion
 
 public class Genera_Cuenta {
@@ -291,7 +292,6 @@ public class Genera_Cuenta {
         return conductor;
     }
 
-    //esto puede no servir
     public String genNumCuenta(String numCedula) {
 
         String nombre;
@@ -339,5 +339,51 @@ public class Genera_Cuenta {
             System.out.println("No se encontro la informacion de: 1 " + numCedula);
         }
         return numTarjetaEncontrado;
+    }
+    
+    public boolean verificarNumeroCuenta(String numeroCuenta) {
+
+        String número_cuenta;    
+        
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        boolean estado=false;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("cuentas.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(linea, "|");
+                número_cuenta = st.nextToken();
+                if (numeroCuenta.equals(número_cuenta)) {                    
+                    estado = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        if (estado) {
+            JOptionPane.showMessageDialog(null, "La cuenta: " + numeroCuenta+" ya existe" );
+        }
+        return estado;
     }
 }
