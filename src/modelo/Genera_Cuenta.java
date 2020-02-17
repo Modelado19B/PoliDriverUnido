@@ -54,7 +54,8 @@ public class Genera_Cuenta {
         }
         return cuentasDebito;
     }
-/*
+
+    /*
     public Cuenta generaCuentas(String numeroCuenta) {
 
         String número_cuenta;
@@ -106,7 +107,7 @@ public class Genera_Cuenta {
         }
         return cd;
     }
-*/
+     */
     public void guardaCuenta(ArrayList cuentasCredito) {
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -161,7 +162,7 @@ public class Genera_Cuenta {
                 fecha = st.nextToken();
                 if (numCedula.equals(cedula)) {
                     numTarjetaEncontrado = numTarjeta;
-                    estado=true;
+                    estado = true;
                     break;
                 }
             }
@@ -340,15 +341,15 @@ public class Genera_Cuenta {
         }
         return numTarjetaEncontrado;
     }
-    
+
     public boolean verificarNumeroCuenta(String numeroCuenta) {
 
-        String número_cuenta;    
-        
+        String número_cuenta;
+
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
-        boolean estado=false;
+        boolean estado = false;
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
@@ -362,7 +363,7 @@ public class Genera_Cuenta {
             while ((linea = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(linea, "|");
                 número_cuenta = st.nextToken();
-                if (numeroCuenta.equals(número_cuenta)) {                    
+                if (numeroCuenta.equals(número_cuenta)) {
                     estado = true;
                     break;
                 }
@@ -382,18 +383,15 @@ public class Genera_Cuenta {
             }
         }
         if (estado) {
-            JOptionPane.showMessageDialog(null, "La cuenta: " + numeroCuenta+" ya existe" );
+            JOptionPane.showMessageDialog(null, "La cuenta: " + numeroCuenta + " ya existe");
         }
         return estado;
     }
     
     public ArrayList generaViajesPasajeros() {
-        String []lista=new String[3];
-        ArrayList<lista> cuentasDebito = new ArrayList<lista>();
+        ArrayList<modeloTabla> cuentasDebito = new ArrayList<modeloTabla>();
 
-        String número_cuenta;
-        String cvv;
-        float saldo;
+        String viaje,cedula,numero; 
 
         File archivo = null;
         FileReader fr = null;
@@ -411,11 +409,10 @@ public class Genera_Cuenta {
             while ((linea = br.readLine()) != null) {
 
                 StringTokenizer st = new StringTokenizer(linea, "|");
-                número_cuenta = st.nextToken();
-                cvv = st.nextToken();
-                saldo = Float.parseFloat(st.nextToken());
-                Cuenta cd = new Cuenta(número_cuenta, cvv, saldo);
-                cuentasDebito.add(cd);
+                viaje = st.nextToken();
+                cedula=st.nextToken();
+                numero=st.nextToken();
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -432,5 +429,23 @@ public class Genera_Cuenta {
             }
         }
         return cuentasDebito;
+
+    public void genArchivoViajes(String numCedula, String indiceViaje, int disponibilidad) {
+
+        File archivo = null;
+
+        try {
+            String detalle = "detallesViaje.txt";
+            File file = new File(detalle);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(indiceViaje + "++" + numCedula + "++" + disponibilidad);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
