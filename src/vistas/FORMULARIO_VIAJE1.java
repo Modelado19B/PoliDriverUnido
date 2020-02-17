@@ -10,6 +10,8 @@ import modelo.DATOS_DEL_VIAJE;
 import modelo.DATOS_DISPONIBILIDAD;
 import static vistas.Ruta.map;
 import com.teamdev.jxmaps.LatLng;
+import controlador.ListaViaje;
+import controlador.Viaje;
 import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,11 +25,15 @@ import javax.swing.JOptionPane;
 import java.io.*;
 import java.text.ParseException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelo.Archivos;
 import modelo.ViajeTxt;
+
 
 
 /**
@@ -51,15 +57,22 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     DATOS_DISPONIBILIDAD DATA = new DATOS_DISPONIBILIDAD();
     SimpleDateFormat FormaFecha = new SimpleDateFormat("dd/MM/yyyy");
     DATOS_DISPONIBILIDAD CD = new DATOS_DISPONIBILIDAD();
-    DefaultTableModel tabla = new DefaultTableModel();
+    DefaultTableModel Modelo = new DefaultTableModel();
+    Viaje objViaje = new Viaje();
+    Archivos archivos = new Archivos();
+    ListaViaje listaViaje;
 
     public FORMULARIO_VIAJE1() {
         initComponents();
 
         this.getContentPane().setBackground(Color.WHITE);
         jPanel2.add(example, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 700));
-        tabla.addColumn("Viaje");
-        pasarDatosTabla();
+        
+        Modelo = objViaje.cargarModelo(Modelo);
+        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
+        listaViaje=archivos.leerArchivo();
+       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
+        
     }
 
     /**
@@ -1221,67 +1234,21 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
         int fila = jTableViaje.getRowCount();
         if (fila >= 0) {
             objViajeTxt.BorrarLinea(fila);
-            this.tabla.getDataVector().clear();
+            this.Modelo.getDataVector().clear();
         } else {
             JOptionPane.showMessageDialog(null, "seleccionar fila");
         }
-        pasarDatosTabla();
+        
+        Modelo = objViaje.cargarModelo(Modelo);
+        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
+        listaViaje=archivos.leerArchivo();
+       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
+        
     }//GEN-LAST:event_jButtonEliminarViajeActionPerformed
 
-    void pasarDatosTabla() {
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-        Vector lineas = new Vector();
-        try {
-            archivo = new File("ViajeTemporal.txt");
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
-            String informacion;
-            Scanner sc = new Scanner(archivo);
-
-            //buscar datos por tabla
-            /*while(sc.hasNextLine()){
-          String linea = sc.nextLine();
-          StringTokenizer tk = new StringTokenizer(linea,"++"); 
-          String id = tk.nextToken();
-       if ("172526388-1".equals(tk.nextToken())){ 
-           //tabla.addRow(new String [] {informacion});
-       tabla.addRow(new String [] {tk.nextToken()});
-       System.out.println(tk.nextToken());
-      }else{ 
-      
-           
-      }
-      
-     }
-     
-     TablaDatos.setModel(tabla);  */
-            while ((informacion = br.readLine()) != null) {
-                System.out.println(informacion);
-                
-                tabla.addRow(new String[]{informacion});
-            }
-            jTableViaje.setModel(tabla);
-        } catch (IOException e) {
-        } finally {
-            try {
-                if (null != fr) {
-                    fr.close();
-                }
-            } catch (IOException e2) {
-            }
-
-        }
-
-    }
     
     
-
-    /**
-     * @param args the command line arguments
-     */
-
+    
    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
