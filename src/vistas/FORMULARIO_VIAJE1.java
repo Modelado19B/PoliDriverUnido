@@ -22,8 +22,13 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.text.ParseException;
+import java.util.Scanner;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import modelo.ViajeTxt;
+
 
 /**
  *
@@ -41,18 +46,20 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     float gananciaPolidriver = 0;
     int horas = 0;
     String tiempoTotal = "";
-    
-    
+
     ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();
     DATOS_DISPONIBILIDAD DATA = new DATOS_DISPONIBILIDAD();
     SimpleDateFormat FormaFecha = new SimpleDateFormat("dd/MM/yyyy");
     DATOS_DISPONIBILIDAD CD = new DATOS_DISPONIBILIDAD();
-    
+    DefaultTableModel tabla = new DefaultTableModel();
+
     public FORMULARIO_VIAJE1() {
         initComponents();
 
         this.getContentPane().setBackground(Color.WHITE);
         jPanel2.add(example, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 700));
+        tabla.addColumn("Viaje");
+        pasarDatosTabla();
     }
 
     /**
@@ -97,7 +104,10 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
         jLabelImagenDinero = new javax.swing.JLabel();
         jButtonCrearViaje = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        cerrar = new javax.swing.JButton();
+        jButtonCerrarSecion = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableViaje = new javax.swing.JTable();
+        jButtonEliminarViaje = new javax.swing.JButton();
 
         setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(1240, 620));
@@ -382,10 +392,30 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cerrar.setText("Cerrar Sesión");
-        cerrar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCerrarSecion.setText("Cerrar Sesión");
+        jButtonCerrarSecion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarActionPerformed(evt);
+                jButtonCerrarSecionActionPerformed(evt);
+            }
+        });
+
+        jTableViaje.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableViaje);
+
+        jButtonEliminarViaje.setText("Eliminar Viaje");
+        jButtonEliminarViaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarViajeActionPerformed(evt);
             }
         });
 
@@ -400,107 +430,115 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelDisponibilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelViaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jPanelViaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminarViaje)
+                        .addGap(28, 28, 28))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(231, 231, 231)
+                        .addComponent(jButtonCerrarSecion, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelLogo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(cerrar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabelLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEliminarViaje)
+                .addGap(4, 4, 4)
+                .addComponent(jButtonCerrarSecion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCrearViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearViajeActionPerformed
-     String fecha;
+        String fecha;
         String horaSalida = "", minutosSalida = "";
         String HoraLlegada = "";
-        String Salida = " ", LLegada = " ", asientos=" ",costo=" ";
-        int asientosD=0;
-        int asientosA=0;
-        int auxcosto=0;
+        String Salida = " ", LLegada = " ", asientos = " ", costo = " ";
+        int asientosD = 0;
+        int asientosA = 0;
+        int auxcosto = 0;
         //optencion de fecha
         SimpleDateFormat FormaFecha = new SimpleDateFormat("dd/MM/yyyy");
         if (this.jDateChooserSalida.getDate() != null) {
             fecha = FormaFecha.format(this.jDateChooserSalida.getDate());
-        } else {     fecha = " ";    }
-        
+        } else {
+            fecha = " ";
+        }
+
         horaSalida = this.jComboBoxHoraSalida.getSelectedItem().toString();
         minutosSalida = this.jComboBoxMinutosSalida.getSelectedItem().toString();
         HoraLlegada = this.jTextFieldTiempoEstimado.getText();
         Salida = this.jComboBoxCiudadOrigen.getSelectedItem().toString();
         LLegada = this.jComboBoxCiudadDestino.getSelectedItem().toString();
-        asientos= this.jTextFieldAsientos.getText().toString();
-        costo= this.jTextFieldCosto.getText().toString();
-        
+        asientos = this.jTextFieldAsientos.getText().toString();
+        costo = this.jTextFieldCosto.getText().toString();
+
         System.err.println(Salida + "    " + LLegada);
-        
-       if (fecha.equals(" ") || horaSalida.equals("  ") || minutosSalida.equals("  ") || Salida.equals("  ") 
-                || LLegada.equals("  ") || HoraLlegada.equals(" ") || asientos.equals(" ") || costo.equals(" ") ) {
+
+        if (fecha.equals(" ") || horaSalida.equals("  ") || minutosSalida.equals("  ") || Salida.equals("  ")
+                || LLegada.equals("  ") || HoraLlegada.equals(" ") || asientos.equals(" ") || costo.equals(" ")) {
             // cadena no está vacía
             JOptionPane.showMessageDialog(this, "No dejar campos Vacíos", "Error!", JOptionPane.ERROR_MESSAGE);
         } else if (Salida == null ? LLegada == null : Salida.equals(LLegada)) {
             JOptionPane.showMessageDialog(this, "Punto de Salida Y de llegada Iguales", "Error!", JOptionPane.ERROR_MESSAGE);
 
-        } else{
-        //envio de USER
-        obj.leerArchivo("172526388-1");
-        
-        asientosD=Integer.parseInt(jTextFieldAsientos.getText());
-        System.out.println(" asientos viaje "+asientosD);
-        asientosA=Integer.parseInt(obj.getTotalAsientos());
-        System.out.println(" asientos auto "+asientosA);
-        auxcosto=Integer.parseInt(this.jTextFieldCosto.getText().toString());
+        } else {
+            //envio de USER
+            obj.leerArchivo("172526388-1");
+
+            asientosD = Integer.parseInt(jTextFieldAsientos.getText());
+            System.out.println(" asientos viaje " + asientosD);
+            asientosA = Integer.parseInt(obj.getTotalAsientos());
+            System.out.println(" asientos auto " + asientosA);
+            auxcosto = Integer.parseInt(this.jTextFieldCosto.getText().toString());
         }
-        if ((asientosD >= asientosA) || (asientosD <= 0) || (auxcosto < 0)){ 
-        JOptionPane.showMessageDialog(null,"Numero de asientos incorrecto o costo no permitido", "Error", 1);
-        
-         System.out.println("asientos disponibles "+asientosD+" asientos auto "+asientosA);
-        } else{
+        if ((asientosD >= asientosA) || (asientosD <= 0) || (auxcosto < 0)) {
+            JOptionPane.showMessageDialog(null, "Numero de asientos incorrecto o costo no permitido", "Error", 1);
+
+            System.out.println("asientos disponibles " + asientosD + " asientos auto " + asientosA);
+        } else {
 ////
-             //señal que ingreso correcto de datos con las validaciones
+            //señal que ingreso correcto de datos con las validaciones
             System.out.println("ingreso registro viaje");
             //guarda en archivo el conductor correcto segun la clase archivos plano
             obj.guardarrArchivo();
-            
+
             DATOS_DEL_VIAJE DATA = new DATOS_DEL_VIAJE();
             DATA.setLugar_origen(jComboBoxCiudadOrigen.getSelectedItem().toString());
             DATA.setLugar_destino(jComboBoxCiudadDestino.getSelectedItem().toString());
             //conversion de fecha
             Date date1;
-          try {
-              date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
-              DATA.setFecha(date1);
-          } catch (ParseException ex) {
-              Logger.getLogger(FORMULARIO_VIAJE1.class.getName()).log(Level.SEVERE, null, ex);
-          }
-           
+            try {
+                date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+                DATA.setFecha(date1);
+            } catch (ParseException ex) {
+                Logger.getLogger(FORMULARIO_VIAJE1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             DATA.setHora_salida(horaSalida + ":" + minutosSalida);
             DATA.setHora_llegada(HoraLlegada);
             //envio a disponibilidad
             CD.setCosto(jTextFieldCosto.getText());
             CD.setDisponiblidad(jTextFieldAsientos.getText());
-            
-            
-            
+
             File viajeTxt = new File("ViajeTemporal.txt");
             try {
                 if (viajeTxt.createNewFile()) {
@@ -511,8 +549,6 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
             }
             try {
 
-                
-                
                 BufferedWriter Escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(viajeTxt, true), "utf-8"));
 
                 Escribir.write(DATA.getLugar_origen() + "++");
@@ -521,14 +557,11 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 Escribir.write(DATA.getHora_salida() + "++");
                 Escribir.write(DATA.getHora_llegada() + "++");
                 //ingreso al archivo desde disponibilidad
-                Escribir.write(CD.getCosto()+"++");
-                Escribir.write(CD.getDisponiblidad()+"++{}\n");
-                
-                
-                
-                
+                Escribir.write(CD.getCosto() + "++");
+                Escribir.write(CD.getDisponiblidad() + "++{}\n");
+
                 System.out.println("Datos ingresados");
-                JOptionPane.showMessageDialog(null,"Viaje Creado", "Listo", 1);
+                JOptionPane.showMessageDialog(null, "Viaje Creado", "Listo", 1);
                 Escribir.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -537,7 +570,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
             //aparicion siguiente ventana
         }//fin else
 
-         
+
     }//GEN-LAST:event_jButtonCrearViajeActionPerformed
 
     private void jButtonCalcularRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCalcularRutaActionPerformed
@@ -618,7 +651,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
                 example.generateMarker(i[512]);
 
-                distancia = (float) (example.calcularDistancia(i[11], i[511])*0.25);
+                distancia = (float) (example.calcularDistancia(i[11], i[511]) * 0.25);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -686,7 +719,6 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                     example.generarRuta(i[jj], i[jj + 1], false);
                 }
 
-                
                 example.generateMarker(i[275]);
 
                 distancia = example.calcularDistancia(i[11], i[276]);
@@ -696,14 +728,14 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 tiempoTotal = example.formatearMinutosAHoraMinuto((int) tiempo);
                 monto = example.calcularMonto(distancia, gananciaPolidriver);
             } else if (jComboBoxCiudadDestino.getSelectedItem() == "Guayaquil") {
-                
+
                 example.generateMarker(i[788]);
                 for (jj = 787; jj > 591; jj--) {
                     example.generarRuta(i[jj], i[jj + 1], false);
                 }
                 example.generateMarker(i[592]);
-                
-                distancia = (float) (example.calcularDistancia(i[779], i[592])*0.85);
+
+                distancia = (float) (example.calcularDistancia(i[779], i[592]) * 0.85);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -712,7 +744,6 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
             } else if (jComboBoxCiudadDestino.getSelectedItem() == "Santo Domingo") {
 
-                
                 example.generateMarker(i[788]);
                 for (jj = 787; jj > 591; jj--) {
                     example.generarRuta(i[jj], i[jj + 1], false);
@@ -721,8 +752,8 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                     example.generarRuta(i[jj], i[jj + 1], false);
                 }
                 example.generateMarker(i[512]);
-                
-                distancia = (float) (example.calcularDistancia(i[779], i[512])*5.7);
+
+                distancia = (float) (example.calcularDistancia(i[779], i[512]) * 5.7);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -761,8 +792,8 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 }
 
                 example.generateMarker(i[0]);
-                
-                distancia = (float) (example.calcularDistancia(i[1], i[275])*0.85);
+
+                distancia = (float) (example.calcularDistancia(i[1], i[275]) * 0.85);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -810,8 +841,8 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                     example.generarRuta(i[jj], i[jj + 1], false);
                 }
                 example.generateMarker(i[788]);
-                
-                distancia = (float) (example.calcularDistancia(i[779], i[592])*0.85);
+
+                distancia = (float) (example.calcularDistancia(i[779], i[592]) * 0.85);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -831,7 +862,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 example.generateMarker(i[588]);
                 example.generateMarker(i[29]);
 
-                distancia = (float) ((example.calcularDistancia(i[588], i[28]))*0.3);
+                distancia = (float) ((example.calcularDistancia(i[588], i[28])) * 0.3);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -852,7 +883,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 example.generateMarker(i[588]);
                 example.generateMarker(i[1]);
 
-                distancia = (float) (example.calcularDistancia(i[588], i[1])*0.38);
+                distancia = (float) (example.calcularDistancia(i[588], i[1]) * 0.38);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -890,7 +921,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
                 example.generateMarker(i[588]);
 
-                distancia = (float) (example.calcularDistancia(i[588], i[1])*0.38);
+                distancia = (float) (example.calcularDistancia(i[588], i[1]) * 0.38);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -926,7 +957,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 }
 
                 example.generateMarker(i[275]);
-                distancia = (float) (example.calcularDistancia(i[1], i[275])*0.85);
+                distancia = (float) (example.calcularDistancia(i[1], i[275]) * 0.85);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -1009,7 +1040,6 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
             } else if (jComboBoxCiudadDestino.getSelectedItem() == "Loja") {
 
-                
                 example.generateMarker(i[512]);
                 for (jj = 512; jj < 591; jj++) {
                     example.generarRuta(i[jj], i[jj + 1], false);
@@ -1018,15 +1048,14 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                     example.generarRuta(i[jj], i[jj + 1], false);
                 }
                 example.generateMarker(i[788]);
-                
-                
-                distancia = (float) ((float) (example.calcularDistancia(i[779], i[512]))*5.7);
+
+                distancia = (float) ((float) (example.calcularDistancia(i[779], i[512])) * 5.7);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
                 tiempoTotal = example.formatearMinutosAHoraMinuto((int) tiempo);
                 monto = example.calcularMonto(distancia, gananciaPolidriver);
-                
+
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -1045,7 +1074,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 }
                 example.generateMarker(i[12]);
 
-                   distancia = (float) (example.calcularDistancia(i[11], i[511])*0.25);
+                distancia = (float) (example.calcularDistancia(i[11], i[511]) * 0.25);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -1082,7 +1111,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
                 example.generateMarker(i[588]);
 
-                distancia = (float) ((example.calcularDistancia(i[588], i[28]))*0.3);
+                distancia = (float) ((example.calcularDistancia(i[588], i[28])) * 0.3);
                 tiempo = example.calcularTiempo(distancia);
                 gananciaPolidriver = example.calcularGananciaAPP(distancia);
                 tiempo = example.calcularTiempo(distancia);
@@ -1154,17 +1183,15 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
         jTextFieldCostoEstimado.setText(String.valueOf(formato1.format(monto)) + " $");
         jTextFieldGananciaPolidriver.setText(String.valueOf(formato1.format(gananciaPolidriver)) + " $");
         jComboBoxCiudadOrigen.enable(false);
-        
-       jComboBoxCiudadDestino.enable(false);
-       
+
+        jComboBoxCiudadDestino.enable(false);
+
         jDateChooserSalida.setEnabled(true);
         jComboBoxHoraSalida.enable(true);
         jComboBoxMinutosSalida.enable(true);
         jTextFieldAsientos.setEditable(true);
         jTextFieldCosto.setEditable(true);
         jButtonCrearViaje.setEnabled(true);
-
-
 
     }
 
@@ -1179,29 +1206,95 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonCalcularRutaActionPerformed
 
-    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
-       
+    private void jButtonCerrarSecionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSecionActionPerformed
+
         FORMULARIO_LOGIN logeo = new FORMULARIO_LOGIN();
         logeo.setLocationRelativeTo(null);
         logeo.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_cerrarActionPerformed
+    }//GEN-LAST:event_jButtonCerrarSecionActionPerformed
 
-    
-    public void llenarTablaViaje(){
-    
-    
+    private void jButtonEliminarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarViajeActionPerformed
+        // TODO add your handling code here:
+
+       ViajeTxt objViajeTxt = new ViajeTxt();
+        int fila = jTableViaje.getRowCount();
+        if (fila >= 0) {
+            objViajeTxt.BorrarLinea(fila);
+            this.tabla.getDataVector().clear();
+        } else {
+            JOptionPane.showMessageDialog(null, "seleccionar fila");
+        }
+        pasarDatosTabla();
+    }//GEN-LAST:event_jButtonEliminarViajeActionPerformed
+
+    void pasarDatosTabla() {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        Vector lineas = new Vector();
+        try {
+            archivo = new File("ViajeTemporal.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String informacion;
+            Scanner sc = new Scanner(archivo);
+
+            //buscar datos por tabla
+            /*while(sc.hasNextLine()){
+          String linea = sc.nextLine();
+          StringTokenizer tk = new StringTokenizer(linea,"++"); 
+          String id = tk.nextToken();
+       if ("172526388-1".equals(tk.nextToken())){ 
+           //tabla.addRow(new String [] {informacion});
+       tabla.addRow(new String [] {tk.nextToken()});
+       System.out.println(tk.nextToken());
+      }else{ 
+      
+           
+      }
+      
+     }
+     
+     TablaDatos.setModel(tabla);  */
+            while ((informacion = br.readLine()) != null) {
+                System.out.println(informacion);
+                
+                tabla.addRow(new String[]{informacion});
+            }
+            jTableViaje.setModel(tabla);
+        } catch (IOException e) {
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (IOException e2) {
+            }
+
+        }
+
     }
+    
+    
+
     /**
      * @param args the command line arguments
      */
-  
 
+   public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FORMULARIO_VIAJE1().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ImagenAsientos;
-    private javax.swing.JButton cerrar;
     private javax.swing.JButton jButtonCalcularRuta;
+    private javax.swing.JButton jButtonCerrarSecion;
     private javax.swing.JButton jButtonCrearViaje;
+    private javax.swing.JButton jButtonEliminarViaje;
     private javax.swing.JComboBox<String> jComboBoxCiudadDestino;
     private javax.swing.JComboBox<String> jComboBoxCiudadOrigen;
     private javax.swing.JComboBox<String> jComboBoxHoraSalida;
@@ -1226,6 +1319,8 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelDisponibilidad;
     private javax.swing.JPanel jPanelViaje;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableViaje;
     private javax.swing.JTextField jTextFieldAsientos;
     private javax.swing.JTextField jTextFieldCosto;
     private javax.swing.JTextField jTextFieldCostoEstimado;
