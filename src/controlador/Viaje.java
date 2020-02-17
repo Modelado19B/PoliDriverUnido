@@ -20,26 +20,7 @@ import modelo.DATOS_DEL_VIAJE;
  */
 public class Viaje {
     
-     public void renderizarTabla(JTable tablaViajes) {
 
-        for (int i = 1; i < tablaViajes.getColumnCount(); i++) {
-            DefaultTableColumnModel colModel = (DefaultTableColumnModel) tablaViajes.getColumnModel();
-            TableColumn col = colModel.getColumn(i);
-            int width = 0;
-            TableCellRenderer renderer = col.getHeaderRenderer();
-            for (int r = 0; r < tablaViajes.getRowCount(); r++) {
-                renderer = tablaViajes.getCellRenderer(r, i);
-                Component comp = renderer.getTableCellRendererComponent(tablaViajes, tablaViajes.getValueAt(r, i),
-                        false, false, r, i);
-                width = Math.max(width, comp.getPreferredSize().width);
-            }
-            col.setPreferredWidth(width + 2);
-        }
-        tablaViajes.getColumnModel().getColumn(0).setMaxWidth(0);
-        tablaViajes.getColumnModel().getColumn(0).setMinWidth(0);
-        tablaViajes.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tablaViajes.getColumnModel().getColumn(0).setResizable(false);
-    }
 
     public void actualizarTabla(ListaViaje listaViaje, JTable tablaViajes, DefaultTableModel modelo) {
         cargarTabla(tablaViajes, modelo);
@@ -49,7 +30,6 @@ public class Viaje {
             modelo.addRow(new Object[]{m.getIndiceViaje(),m.getCi_conductor(),m.getApellidoConductor(),m.getAuto(), m.getLugar_origen(), m.getLugar_destino(), m.getFecha()});
         }
         tablaViajes.setModel(modelo);
-        renderizarTabla(tablaViajes);
         tablaViajes.revalidate();
 
     }

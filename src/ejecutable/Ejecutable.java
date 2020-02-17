@@ -2,6 +2,7 @@ package ejecutable;
 
 
 import modelo.ARCHIVOS_PLANOS;
+import vistas.FORMULARIO_VIAJE1;
 import vistas.PRINCIPAL;
 
 
@@ -11,7 +12,7 @@ public class Ejecutable {
 
 //      ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();       
 //      obj.leerArchivo("172526388-1");
-        PRINCIPAL p = new PRINCIPAL();
+        FORMULARIO_VIAJE1 p = new FORMULARIO_VIAJE1();
         p.setLocationRelativeTo(null);
         p.setVisible(true);
       

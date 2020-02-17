@@ -34,8 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Archivos;
 import modelo.ViajeTxt;
 
-
-
 /**
  *
  * @author Admini
@@ -52,12 +50,13 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     float gananciaPolidriver = 0;
     int horas = 0;
     String tiempoTotal = "";
+    String IDEleminar = "";
 
     ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();
-    DATOS_DISPONIBILIDAD DATA = new DATOS_DISPONIBILIDAD();
     SimpleDateFormat FormaFecha = new SimpleDateFormat("dd/MM/yyyy");
     DATOS_DISPONIBILIDAD CD = new DATOS_DISPONIBILIDAD();
     DefaultTableModel Modelo = new DefaultTableModel();
+    ViajeTxt objViajeTxt = new ViajeTxt();
     Viaje objViaje = new Viaje();
     Archivos archivos = new Archivos();
     ListaViaje listaViaje;
@@ -67,12 +66,12 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
         this.getContentPane().setBackground(Color.WHITE);
         jPanel2.add(example, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 700));
-        
+
         Modelo = objViaje.cargarModelo(Modelo);
-        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
-        listaViaje=archivos.leerArchivo();
-       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
-        
+        jTableViaje = objViaje.cargarTabla(jTableViaje, Modelo);
+        listaViaje = archivos.leerArchivo();
+        objViaje.actualizarTabla(listaViaje, jTableViaje, Modelo);
+
     }
 
     /**
@@ -423,6 +422,11 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableViaje.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableViajeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableViaje);
 
         jButtonEliminarViaje.setText("Eliminar Viaje");
@@ -1208,11 +1212,6 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        System.exit(0);
-    }
-
     public void activarElementos() {
         jComboBoxCiudadOrigen.enable();
         jComboBoxCiudadDestino.enable();
@@ -1229,27 +1228,30 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
     private void jButtonEliminarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarViajeActionPerformed
         // TODO add your handling code here:
-
-       ViajeTxt objViajeTxt = new ViajeTxt();
+        int filaseleccionada = jTableViaje.getSelectedRow();
+        
+        System.out.println(jTableViaje.getValueAt(filaseleccionada, 0));
         int fila = jTableViaje.getRowCount();
         if (fila >= 0) {
-            objViajeTxt.BorrarLinea(fila);
-            this.Modelo.getDataVector().clear();
+
+            listaViaje.eliminarViaje((String) jTableViaje.getValueAt(filaseleccionada, 0));
         } else {
             JOptionPane.showMessageDialog(null, "seleccionar fila");
         }
-        
+
         Modelo = objViaje.cargarModelo(Modelo);
-        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
-        listaViaje=archivos.leerArchivo();
-       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
-        
+        jTableViaje = objViaje.cargarTabla(jTableViaje, Modelo);
+        listaViaje = archivos.leerArchivo();
+        objViaje.actualizarTabla(listaViaje, jTableViaje, Modelo);
+
     }//GEN-LAST:event_jButtonEliminarViajeActionPerformed
 
-    
-    
-    
-   public static void main(String args[]) {
+    private void jTableViajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableViajeMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTableViajeMouseClicked
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FORMULARIO_VIAJE1().setVisible(true);
