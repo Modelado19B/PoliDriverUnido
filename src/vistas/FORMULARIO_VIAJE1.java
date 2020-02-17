@@ -24,6 +24,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.text.ParseException;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -33,6 +34,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivos;
 import modelo.ViajeTxt;
+
+
 
 /**
  *
@@ -50,7 +53,7 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     float gananciaPolidriver = 0;
     int horas = 0;
     String tiempoTotal = "";
-    String IDEleminar = "";
+    String IDEleminar="";
 
     ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();
     SimpleDateFormat FormaFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,19 +62,19 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
     ViajeTxt objViajeTxt = new ViajeTxt();
     Viaje objViaje = new Viaje();
     Archivos archivos = new Archivos();
-    ListaViaje listaViaje;
+    ListaViaje listaViaje ;
 
     public FORMULARIO_VIAJE1() {
         initComponents();
 
         this.getContentPane().setBackground(Color.WHITE);
         jPanel2.add(example, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 700));
-
+        listaViaje=archivos.leerArchivo();
         Modelo = objViaje.cargarModelo(Modelo);
-        jTableViaje = objViaje.cargarTabla(jTableViaje, Modelo);
-        listaViaje = archivos.leerArchivo();
-        objViaje.actualizarTabla(listaViaje, jTableViaje, Modelo);
-
+        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
+       
+       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
+        
     }
 
     /**
@@ -1212,6 +1215,8 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
     }
 
+
+
     public void activarElementos() {
         jComboBoxCiudadOrigen.enable();
         jComboBoxCiudadDestino.enable();
@@ -1228,30 +1233,38 @@ public class FORMULARIO_VIAJE1 extends javax.swing.JFrame {
 
     private void jButtonEliminarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarViajeActionPerformed
         // TODO add your handling code here:
-        int filaseleccionada = jTableViaje.getSelectedRow();
-        
-        System.out.println(jTableViaje.getValueAt(filaseleccionada, 0));
+
+       listaViaje=archivos.leerArchivo();
         int fila = jTableViaje.getRowCount();
         if (fila >= 0) {
-
-            listaViaje.eliminarViaje((String) jTableViaje.getValueAt(filaseleccionada, 0));
+            System.err.println(IDEleminar);
+            listaViaje.eliminarViaje(IDEleminar);
+            archivos.guardarArchivo(listaViaje);
+           
+            
         } else {
             JOptionPane.showMessageDialog(null, "seleccionar fila");
         }
-
+        
         Modelo = objViaje.cargarModelo(Modelo);
-        jTableViaje = objViaje.cargarTabla(jTableViaje, Modelo);
-        listaViaje = archivos.leerArchivo();
-        objViaje.actualizarTabla(listaViaje, jTableViaje, Modelo);
-
+        jTableViaje= objViaje.cargarTabla(jTableViaje, Modelo);
+        listaViaje=archivos.leerArchivo();
+       objViaje.actualizarTabla(listaViaje,jTableViaje, Modelo);
+        
     }//GEN-LAST:event_jButtonEliminarViajeActionPerformed
 
     private void jTableViajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableViajeMouseClicked
         // TODO add your handling code here:
-
+        int filaseleccionada = jTableViaje.getSelectedRow();
+        
+        //System.out.println(jTableViaje.getValueAt(filaseleccionada, 0));
+        IDEleminar=(String) jTableViaje.getValueAt(filaseleccionada, 0);
     }//GEN-LAST:event_jTableViajeMouseClicked
 
-    public static void main(String args[]) {
+    
+    
+    
+   public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FORMULARIO_VIAJE1().setVisible(true);
