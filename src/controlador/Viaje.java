@@ -19,15 +19,15 @@ import modelo.DATOS_DEL_VIAJE;
  * @author Admini
  */
 public class Viaje {
-    
-
 
     public void actualizarTabla(ListaViaje listaViaje, JTable tablaViajes, DefaultTableModel modelo) {
         cargarTabla(tablaViajes, modelo);
         LinkedList<DATOS_DEL_VIAJE> Viajes = new LinkedList<>();
         Viajes = listaViaje.listadoViajes();
         for (DATOS_DEL_VIAJE m : Viajes) {
-            modelo.addRow(new Object[]{m.getIndiceViaje(),m.getCi_conductor(),m.getApellidoConductor(),m.getAuto(), m.getLugar_origen(), m.getLugar_destino(), m.getFecha()});
+            if (m.getApellidoConductor().equals("VILA")) {
+                modelo.addRow(new Object[]{m.getIndiceViaje(), m.getCi_conductor(), m.getApellidoConductor(), m.getAuto(), m.getLugar_origen(), m.getLugar_destino(), m.getFecha()});
+            }
         }
         tablaViajes.setModel(modelo);
         tablaViajes.revalidate();
@@ -60,9 +60,5 @@ public class Viaje {
         return modelo;
 
     }
-    
-    
- 
-    
-    
+
 }
