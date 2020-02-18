@@ -7,7 +7,7 @@ public class PAGO_VIAJE extends PAGO {
     
     private String numCuentaEmpresa = getNumCuentaEmpresa();
     
-    public boolean pagar(PASAJERO pasajero, int montoString, String cedulaConductor, String indiceViaje, int disponibilidad) {
+    public boolean pagar(PASAJERO pasajero, int montoString, String cedulaConductor, String indiceViaje, String disponibilidad) {
         Genera_Cuenta gc = new Genera_Cuenta();
         formulario = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
         formulario.setDatos(pasajero, montoString);
@@ -15,7 +15,7 @@ public class PAGO_VIAJE extends PAGO {
         String cvv = formulario.getCvv();
         formulario.dispose();
         boolean estado = false;
-        gc.genArchivoViajes(pasajero.getCedula(), indiceViaje, disponibilidad);
+        
         if (cvv.equals("")) {
             JOptionPane.showMessageDialog(formulario, "Se canceló el Pago");
             return estado;
@@ -39,7 +39,8 @@ public class PAGO_VIAJE extends PAGO {
                 System.out.println("Error en el débito del pasajero.");
             }
             if (estado) {
-                JOptionPane.showMessageDialog(formulario, "El Pago fue realizado corectamente");
+                gc.genArchivoViajes(indiceViaje, pasajero.getCedula(),  disponibilidad);
+                JOptionPane.showMessageDialog(formulario, "El Pago fue realizado corectamente");                
             }
             return estado;
             

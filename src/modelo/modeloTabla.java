@@ -10,15 +10,32 @@ package modelo;
  * @author david
  */
 public class modeloTabla {
-    String dato1;
-    String dato2;
-    String dato3;
+    String viaje;
+    String cedula;
+    String numero;
 
     public modeloTabla(String dato1, String dato2, String dato3) {
-        this.dato1 = dato1;
-        this.dato2 = dato2;
-        this.dato3 = dato3;
+        this.viaje = dato1;
+        this.cedula = dato2;
+        this.numero = dato3;
+    }
+
+    public String getViaje() {
+        return viaje;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public String getNumero() {
+        return numero;
     }
     
-    
+
+    @Override
+    public String toString() {
+        return viaje + "++" + cedula + "++" + numero;
+    }
+       
 }

@@ -288,24 +288,8 @@ public final class VentanaViaje extends javax.swing.JDialog {
     public boolean pagarViaje() {       
         
         PAGO_VIAJE pg = new PAGO_VIAJE();
-        int i = Integer.parseInt(jLabel7.getText())-1;
-        return pg.pagar(pasajero, precio, cedulaConductor, indiceViaje, i);
-        
-//        
-//        System.out.println("en pago 3");
-//        FORMULARIO_PAGO dialog = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
-//        //dialog.setDatos(jLabel10.getText(), cedu_conductor.getText(), jLabel9.getText());
-//        System.out.println("conductor: "+cedulaConductor);
-//        
-//        dialog.setDatos(pasajero, precio,cedulaConductor);
-//        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosing(java.awt.event.WindowEvent e) {
-//                System.exit(0);
-//            }
-//        });
-//        dialog.setVisible(true);
-//        return dialog.estado();
+        return pg.pagar(pasajero, precio, cedulaConductor, indiceViaje, this.txtNumAsi.getText());
+       
 
 
     }

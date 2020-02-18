@@ -3,7 +3,6 @@ package modelo;
 import java.io.*;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 //clase coneccion
 
@@ -387,11 +386,12 @@ public class Genera_Cuenta {
         }
         return estado;
     }
-    
-    public ArrayList generaViajesPasajeros() {
-        ArrayList<modeloTabla> cuentasDebito = new ArrayList<modeloTabla>();
 
-        String viaje,cedula,numero; 
+    public ArrayList generaViajesPasajeros(String numCedula) {
+        ArrayList<modeloTabla> listaTabla = new ArrayList<modeloTabla>();
+
+        String viaje, cedula, numero;
+        modeloTabla modelo;
 
         File archivo = null;
         FileReader fr = null;
@@ -400,7 +400,7 @@ public class Genera_Cuenta {
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
-            archivo = new File("cuentas.txt");
+            archivo = new File("detallesViaje.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
 
@@ -408,11 +408,14 @@ public class Genera_Cuenta {
             String linea;
             while ((linea = br.readLine()) != null) {
 
-                StringTokenizer st = new StringTokenizer(linea, "|");
+                StringTokenizer st = new StringTokenizer(linea, "++");
                 viaje = st.nextToken();
-                cedula=st.nextToken();
-                numero=st.nextToken();
-                
+                cedula = st.nextToken();
+                numero = st.nextToken();
+                if (numCedula.equals(cedula)) {
+                    modelo = new modeloTabla(viaje, cedula, numero);
+                    listaTabla.add(modelo);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -428,24 +431,303 @@ public class Genera_Cuenta {
                 e2.printStackTrace();
             }
         }
-        return cuentasDebito;
+        return listaTabla;
+    }
 
-    public void genArchivoViajes(String numCedula, String indiceViaje, int disponibilidad) {
+    public String generarOrigen(String viajeBuscar) {
+
+        String viaje = "";
+        String ciudad = "";
 
         File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
 
         try {
-            String detalle = "detallesViaje.txt";
-            File file = new File(detalle);
-            if (!file.exists()) {
-                file.createNewFile();
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("ViajeTemporal.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "++");
+                viaje = st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                if (viaje.equals(viajeBuscar)) {
+                    ciudad = st.nextToken();
+                    break;
+                }
+
             }
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(indiceViaje + "++" + numCedula + "++" + disponibilidad);
-            bw.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
+        return ciudad;
     }
+
+    public String generarDestino(String viajeBuscar) {
+
+        String viaje = "";
+        String ciudad = "";
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("ViajeTemporal.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "++");
+                viaje = st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                if (viaje.equals(viajeBuscar)) {
+                    ciudad = st.nextToken();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return ciudad;
+    }
+
+    public String generarCedulaConductor(String viajeBuscar) {
+
+        String viaje = "";
+        String cedula = "";
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("ViajeTemporal.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "++");
+                viaje = st.nextToken();
+                if (viaje.equals(viajeBuscar)) {
+                    cedula = st.nextToken();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return cedula;
+    }
+
+    public String generarMonto(String viajeBuscar) {
+
+        String viaje = "";
+        String monto = "";
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("ViajeTemporal.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "++");
+                viaje = st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                if (viaje.equals(viajeBuscar)) {
+                    monto = st.nextToken();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return monto;
+    }
+
+    private ArrayList generaViajesPasajeros() {
+        ArrayList<modeloTabla> listaTabla = new ArrayList<modeloTabla>();
+
+        String viaje, cedula, numero;
+        modeloTabla modelo;
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File("detallesViaje.txt");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                StringTokenizer st = new StringTokenizer(linea, "++");
+                viaje = st.nextToken();
+                cedula = st.nextToken();
+                numero = st.nextToken();
+                modelo = new modeloTabla(viaje, cedula, numero);
+                listaTabla.add(modelo);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return listaTabla;
+    }
+
+    public void actualizaLista(String viaje, String cedula, String numero) {
+        ArrayList<modeloTabla> listaViajesPasajero = generaViajesPasajeros();
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter("detallesViaje.txt");
+            pw = new PrintWriter(fichero);
+
+            for (int i = 0; i < listaViajesPasajero.size(); i++) {
+                if (!(listaViajesPasajero.get(i).getViaje().equals(viaje)
+                        && listaViajesPasajero.get(i).getCedula().equals(cedula)
+                        && listaViajesPasajero.get(i).getNumero().equals(numero))) {
+                    pw.println(listaViajesPasajero.get(i).toString());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        };
+    }
+
+    public void genArchivoViajes(String viaje, String cedula, String numero) {
+        ArrayList<modeloTabla> listaViajesPasajero = generaViajesPasajeros();
+        modeloTabla mt = new modeloTabla(viaje, cedula, numero);
+        listaViajesPasajero.add(mt);
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter("detallesViaje.txt");
+            pw = new PrintWriter(fichero);
+            for (int i = 0; i < listaViajesPasajero.size(); i++) {
+                pw.println(listaViajesPasajero.get(i).toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        };
+    }  
+
 }

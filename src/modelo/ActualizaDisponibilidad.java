@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
  */
 public class ActualizaDisponibilidad {
 
-    public ArrayList genDisponivilidad() {
+    private ArrayList genDisponivilidad() {
         ArrayList<DisponibilidadModelo> modelos = new ArrayList<DisponibilidadModelo>();
 
         DisponibilidadModelo modelo = null;
@@ -72,7 +72,7 @@ public class ActualizaDisponibilidad {
         return modelos;
     }    
     
-    public void guardaDisponibilidad(ArrayList modelos) {
+    private void guardaDisponibilidad(ArrayList modelos) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {

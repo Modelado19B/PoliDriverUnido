@@ -112,6 +112,11 @@ public class VentanaPublicacion extends javax.swing.JFrame {
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/perfil (1).png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         jPanel8.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 70, 70));
 
         jLabel6.setText("Usuario");
@@ -254,6 +259,11 @@ public class VentanaPublicacion extends javax.swing.JFrame {
     private void optFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optFechaActionPerformed
         JtxtFiltro.setEnabled(true);        // TODO add your handling code here:
     }//GEN-LAST:event_optFechaActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        new ListaViajesPasajero(cedulaPasajero).setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
    
 
 

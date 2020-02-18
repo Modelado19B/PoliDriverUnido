@@ -15,7 +15,7 @@ public class Ejecutable {
 
 //      ARCHIVOS_PLANOS obj = new ARCHIVOS_PLANOS();       
 //      obj.leerArchivo("172526388-1");
-        Genera_Cuenta gc = new Genera_Cuenta();
+        //Genera_Cuenta gc = new Genera_Cuenta();
         PRINCIPAL p = new PRINCIPAL();
         p.setLocationRelativeTo(null);
         p.setVisible(true);
