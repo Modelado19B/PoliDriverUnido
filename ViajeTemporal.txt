@@ -1,7 +1,4 @@
-7932++171627083-8++PAMELA++FLORES++1++KIA++PIC-8976++Quito++Loja++11/02/2020++07:10++11 Horas con 27 Min.++15++1++{}
-4263++012345677-7++BRYAN++ORTUNO++1++HHH++PCA-1245++Latacunga++Loja++13/02/2020++03:20++ 9 Horas con 18 Min.++20++1++{}
-3386++172526388-1++ALEX++VILA++4++toyota++pcq-6789++Puyo++Esmeraldas++13/02/2020++04:20++03:50++20++4++{}
-8635++172526388-1++ALEX++VILA++4++toyota++pcq-6789++Riobamba++Guaranda++14/02/2020++03:10++14:10++14++4++{}
-1455++172526388-1++ALEX++VILA++3++toyota++pcq-6789++Latacunga++Machala++14/02/2020++04:40++03:20++14++3++{}
-1704++000000000-0++MIGUEL++REINA++1++TOYOTA++pcq-2323++Ibarra++Guayaquil++14/02/2020++05:20++ 9 Horas con 10 Min.++34++1++{}
-1163++172526388-1++ALEX++VILA++2++toyota++pcq-6789++Ipiales++Tena++21/02/2020++01:20++03:20++11++2++{}
+3386++172526388-1++ANDRES++VILA++1++toyota++pcq-6789++Puyo++Esmeraldas++13/02/2020++04:20++03:50++20++1++{}
+1704++099999999-9++MIGUEL++REINA++4++TOYOTA++pcq-2323++Ibarra++Guayaquil++14/02/2020++05:20++ 9 Horas con 10 Min.++34++4++{}
+1455++172526388-1++PRUEBA++PRUEBA++3++toyota++pcq-6789++Latacunga++Machala++14/02/2020++04:40++03:20++14++3++{}
+8596++144444444-4++PRUEBA++PRUEBA++4++ABC++ABC-4444++Latacunga++Ibarra++22/02/2020++02:50++ 3 Horas con 35 Min.++17++4++{}

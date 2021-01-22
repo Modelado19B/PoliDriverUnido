@@ -4,8 +4,12 @@ package modelo;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import vistas.FORMULARIO_PAGO;
 
 public abstract class PAGO {
+    
+    FORMULARIO_PAGO formulario = null;
+    //instancia: new FORMULARIO_PAGO(new javax.swing.JFrame(), true); 
 
     private String numCuentaConductor;
     private String numCuentaPasajero;     
@@ -13,66 +17,65 @@ public abstract class PAGO {
 
     public boolean acreditar_cuenta(String numero_cuenta, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuenta = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuenta = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuenta.size(); i++) {
             if (numero_cuenta.equals(cuenta.get(i).getNumero_cuenta())) {
                 cuenta.get(i).acreditar(monto);
                 estado = true;
-                System.out.println("Se acredito correctamente: "+monto);
+                System.out.println("Se acreditó correctamente el monto de $"+monto+" a la cuenta: "+numero_cuenta);
             }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuenta);
+            new Genera_Cuenta().guardaCuenta(cuenta);
         }
         return estado;
     }
 
     public boolean debitar_cuenta(String número_cuenta, String cvv, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuentasDebito = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuentasDebito = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuentasDebito.size(); i++) {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
                 if (cuentasDebito.get(i).getCvv().equals(cvv)) {
                     if (cuentasDebito.get(i).debitar(monto)) {
-                        System.out.println("Se dibito $ " + monto + " exitosamente");
+                        System.out.println("Se debitó el monto de $" + monto + " exitosamente de la cuenta: "+número_cuenta);
                         estado = true;
                     } else {
-                        System.out.println("Transaccion erronea");
+                        System.out.println("Transacción no realizada.");
                     }
                     break;
                 }
             }
-            if (cuentasDebito.size() - 1 == i) {
-                JOptionPane.showMessageDialog(null,"Error en la Cuenta, Por Favor verificar los datos");
-            }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuentasDebito);
+            new Genera_Cuenta().guardaCuenta(cuentasDebito);
+        }else{
+            JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
         }
         return estado;
     }
 
     public boolean debitar_cuenta(String número_cuenta, float monto) {
         boolean estado = false;
-        ArrayList<CUENTA> cuentasDebito = new Genera_Cuenta().generaCuentas();
+        ArrayList<Cuenta> cuentasDebito = new Genera_Cuenta().generaCuentas();
         for (int i = 0; i < cuentasDebito.size(); i++) {
             if (número_cuenta.equals(cuentasDebito.get(i).getNumero_cuenta())) {
 
                 if (cuentasDebito.get(i).debitar(monto)) {
-                    System.out.println("Se dibito $ " + monto + " exitosamente");
+                    System.out.println("Se debitó el monto de $" + monto + " exitosamente de la cuenta: "+número_cuenta);
                     estado = true;
                 } else {
-                    System.out.println("Transaccion erronea");
+                    System.out.println("Transacción no realizada.");
                 }
                 break;
 
             }
             if (cuentasDebito.size() - 1 == i) {
-                JOptionPane.showMessageDialog(null,"Error en la Cuenta, Por Favor verificar los datos");
+                JOptionPane.showMessageDialog(null,"Error en la cuenta, por favor verificar los datos de la cuenta.");
             }
         }
         if (estado) {
-            new Genera_Cuenta().gurdaCuenta(cuentasDebito);
+            new Genera_Cuenta().guardaCuenta(cuentasDebito);
         }
         return estado;
     }

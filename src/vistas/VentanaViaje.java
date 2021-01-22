@@ -6,6 +6,7 @@ import controlador.ListaViaje;
 import controlador.Publicacion;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import modelo.PAGO_VIAJE;
 import modelo.PASAJERO;
 
 public final class VentanaViaje extends javax.swing.JDialog {
@@ -18,6 +19,8 @@ public final class VentanaViaje extends javax.swing.JDialog {
     String cedula;
     int precio;
     PASAJERO pasajero;
+    String cedulaConductor;
+    
     
 
     Publicacion publicacion = new Publicacion();
@@ -35,6 +38,7 @@ public final class VentanaViaje extends javax.swing.JDialog {
         lblFecha.setText(listaViaje.buscarViaje(indiceViaje).getFecha());
         lblSalida.setText(listaViaje.buscarViaje(indiceViaje).getHora_salida());
         lblLlegada.setText(listaViaje.buscarViaje(indiceViaje).getHora_llegada());
+        cedulaConductor=listaViaje.buscarViaje(indiceViaje).getCi_conductor();
 
     }
 
@@ -281,20 +285,13 @@ public final class VentanaViaje extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public boolean pagarViaje() {
-        System.out.println("en pago 3");
-        FORMULARIO_PAGO dialog = new FORMULARIO_PAGO(new javax.swing.JFrame(), true);
-        //dialog.setDatos(jLabel10.getText(), cedu_conductor.getText(), jLabel9.getText());
+    public boolean pagarViaje() {       
+        
+        PAGO_VIAJE pg = new PAGO_VIAJE();
+        return pg.pagar(pasajero, precio, cedulaConductor, indiceViaje, this.txtNumAsi.getText());
+       
 
-        dialog.setDatos(pasajero, precio,"ESTEBAN ANDALUZ");
-        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                System.exit(0);
-            }
-        });
-        dialog.setVisible(true);
-        return dialog.estado();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
